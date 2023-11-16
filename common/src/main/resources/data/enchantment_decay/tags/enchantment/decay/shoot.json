@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:power",
+    "minecraft:punch",
+    "minecraft:flame",
+    "minecraft:infinity",
+    "minecraft:loyalty",
+    "minecraft:multishot",
+    "minecraft:piercing"
+  ]
+}

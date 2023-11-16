@@ -1,0 +1,30 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "mc.recraftor.enchant_decay.enchantment_decay.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "AnvilScreenHandlerMixin",
+    "BowItemMixin",
+    "CrossbowItemMixin",
+    "EnchantmentHelperMixin",
+    "EnchantRandomlyLootFunctionMixin",
+    "FishingBobberEntityMixin",
+    "ItemStackMixin",
+    "LightingRodBlockMixin",
+    "LivingEntityMixin",
+    "PlayerEntityMixin",
+    "ProtectionEnchantmentMixin",
+    "ServerPlayerInteractionManagerMixin",
+    "ThornsEnchantmentMixin",
+    "TridentEntityMixin",
+    "TridentItemMixin",
+    "accessors.EntityRandomAccessor",
+    "accessors.TridentStackAccessor"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

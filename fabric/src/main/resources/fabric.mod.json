@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "enchantment_decay",
+  "version": "${version}",
+  "name": "enchantment_decay",
+  "description": "Makes enchantments decay over use",
+  "authors": [
+    {
+      "name": "Nerjal Nosk",
+      "role": "developer",
+      "contact": {
+        "homepage": "https://github.com/NerjalNosk"
+      }
+    },
+    {
+      "name": "Recraftors Team",
+      "role": "owner",
+      "contact": {
+        "homepage": "https://github.com/RecraftorsMC"
+      }
+    }
+  ],
+  "contact": {
+    "sources": "https://github.com/RecraftorsMC/enchantment-decay",
+    "issues": "https://github.com/RecraftorsMC/enchantment-decay/issues"
+  },
+  "license": "GNU GPL 3.0",
+  "icon": "assets/icon.png",
+  "environment": "*",
+  "entrypoints": {},
+  "mixins": [
+    "enchantment_decay.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.20",
+    "minecraft": ">=1.19 <1.19.3-"
+  }
+}
