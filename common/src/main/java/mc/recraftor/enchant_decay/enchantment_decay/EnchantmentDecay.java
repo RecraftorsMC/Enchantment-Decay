@@ -7,11 +7,11 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtInt;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.util.registry.RegistryEntryList;
-import net.minecraft.util.registry.RegistryKey;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Contract;
@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-import static net.minecraft.util.registry.Registry.ENCHANTMENT;
+import static net.minecraft.registry.Registries.ENCHANTMENT;
 
 public class EnchantmentDecay {
 	public static final String MOD_ID = "enchantment_decay";

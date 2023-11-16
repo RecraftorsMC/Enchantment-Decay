@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedHashMap;
@@ -63,7 +63,7 @@ public class EnchantmentLevelDecayHolder extends LinkedHashMap<Enchantment, Inte
         NbtList list = stack.isOf(Items.ENCHANTED_BOOK) ? EnchantedBookItem.getEnchantmentNbt(stack) : stack.getEnchantments();
         for (int i = 0; i < list.size(); i++) {
             NbtCompound compound = list.getCompound(i);
-            Registry.ENCHANTMENT.getOrEmpty(EnchantmentHelper.getIdFromNbt(compound)).ifPresent(e -> {
+            Registries.ENCHANTMENT.getOrEmpty(EnchantmentHelper.getIdFromNbt(compound)).ifPresent(e -> {
                 put(e, EnchantmentHelper.getLevelFromNbt(compound));
                 putDecay(e, EnchantmentDecay.getDecayFromNbt(compound));
             });

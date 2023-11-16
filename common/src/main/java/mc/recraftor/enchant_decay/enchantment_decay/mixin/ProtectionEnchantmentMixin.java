@@ -16,7 +16,7 @@ public abstract class ProtectionEnchantmentMixin {
         entity.getArmorItems().forEach(stack -> EnchantmentDecay.decay(stack, entity.getRandom(), DecaySource.FIRE));
     }
 
-    @Inject(method = "transformExplosionKnockback", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;floor(D)I"))
+    @Inject(method = "transformExplosionKnockback", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;clamp(DDD)D"))
     private static void transformExplosionKnockbackInjector(LivingEntity entity, double velocity, CallbackInfoReturnable<Double> cir) {
         entity.getArmorItems().forEach(stack -> EnchantmentDecay.decay(stack, entity.getRandom(), DecaySource.BLAST));
     }

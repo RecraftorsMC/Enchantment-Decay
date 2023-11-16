@@ -16,19 +16,6 @@ import java.util.Map;
 
 @Mixin(AnvilScreenHandler.class)
 public abstract class AnvilScreenHandlerMixin {
-    /*@ModifyVariable(
-            method = "updateResult", name = "j",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/screen/Property;set(I)V",
-                    ordinal = 5,
-                    shift = At.Shift.BEFORE
-            )
-    )
-    private int updateResultModifyRepairCost(int value) {
-        return 0;
-    }*/
-
     @Redirect(
             method = "updateResult",
             at = @At(

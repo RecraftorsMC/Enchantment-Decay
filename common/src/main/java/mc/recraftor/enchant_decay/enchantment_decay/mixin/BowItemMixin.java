@@ -69,7 +69,7 @@ public abstract class BowItemMixin {
             method = "onStoppedUsing",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/entity/player/PlayerEntity;getArrowType(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;",
+                    target = "Lnet/minecraft/item/ArrowItem;createArrow(Lnet/minecraft/world/World;Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/LivingEntity;)Lnet/minecraft/entity/projectile/PersistentProjectileEntity;",
                     shift = At.Shift.BEFORE
             ),
             locals = LocalCapture.CAPTURE_FAILEXCEPTION

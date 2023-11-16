@@ -1,8 +1,8 @@
 package mc.recraftor.enchant_decay.enchantment_decay;
 
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.tag.TagKey;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
 
 import java.util.Map;
 import java.util.Optional;
@@ -43,7 +43,7 @@ public final class DecaySource {
 
     private DecaySource(String s) {
         this.id = s;
-        this.tag = TagKey.of(Registry.ENCHANTMENT_KEY, EnchantmentDecay.id("decay/"+s));
+        this.tag = TagKey.of(RegistryKeys.ENCHANTMENT, EnchantmentDecay.id("decay/"+s));
     }
 
     public String getId() {
