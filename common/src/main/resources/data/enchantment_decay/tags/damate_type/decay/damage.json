@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:generic",
+    "minecraft:player_attack",
+    "minecraft:mob_attack",
+    "minecraft:mob_attack_no_aggro",
+    "minecraft:sweet_berry_bush",
+    "minecraft:cactus",
+    "minecraft:thorns"
+  ]
+}

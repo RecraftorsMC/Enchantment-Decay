@@ -1,16 +1,18 @@
 package mc.recraftor.enchant_decay.enchantment_decay;
 
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.entity.damage.DamageType;
+import net.minecraft.registry.*;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.registry.tag.TagKey;
 
-import java.util.Map;
-import java.util.Optional;
-import java.util.TreeMap;
+import java.util.*;
 
 public final class DecaySource {
     private final String id;
     private final TagKey<Enchantment> tag;
+    private final TagKey<DamageType> damageSource;
     private static final Map<String, DecaySource> sourceMap = new TreeMap<>();
 
     public static final DecaySource AQUA_AFFINITY = register("aqua_affinity");
@@ -19,10 +21,12 @@ public final class DecaySource {
     public static final DecaySource BURN_WALKING = register("burn_walking");
     public static final DecaySource BREATHING = register("breathing");
     public static final DecaySource DAMAGE = register("damage");
+    @SuppressWarnings("unused")
     public static final DecaySource FALL = register("fall");
     public static final DecaySource FIRE = register("fire");
     public static final DecaySource FISHING = register("fishing");
     public static final DecaySource FROST_WALK = register("frost_walk");
+    @SuppressWarnings("unused")
     public static final DecaySource GET_SHOT = register("get_shot");
     public static final DecaySource HURT = register("hurt");
     public static final DecaySource JUMP = register("jump");
@@ -41,9 +45,17 @@ public final class DecaySource {
 
     public static final DecaySource BLACKLIST = register("decay_blacklist");
 
+    private static final RegistryWrapper.Delegating<DamageType> wrapper;
+
+    static {
+        RegistryWrapper.Impl<DamageType> impl = BuiltinRegistries.createWrapperLookup().getWrapperOrThrow(RegistryKeys.DAMAGE_TYPE);
+        wrapper = new RegistryWrapper.Delegating<>(impl);
+    }
+
     private DecaySource(String s) {
         this.id = s;
         this.tag = TagKey.of(RegistryKeys.ENCHANTMENT, EnchantmentDecay.id("decay/"+s));
+        this.damageSource = TagKey.of(RegistryKeys.DAMAGE_TYPE, EnchantmentDecay.id("decay/"+s));
     }
 
     public String getId() {
@@ -52,6 +64,10 @@ public final class DecaySource {
 
     public TagKey<Enchantment> getTag() {
         return tag;
+    }
+
+    public TagKey<DamageType> getDamageSources() {
+        return damageSource;
     }
 
     public static DecaySource register(String id) {
@@ -64,6 +80,17 @@ public final class DecaySource {
         DecaySource source = new DecaySource(id);
         sourceMap.put(id, source);
         return source;
+    }
+
+    public static Collection<DecaySource> resolveDamageSources(RegistryEntry<DamageType> type) {
+        List<DecaySource> out = new ArrayList<>(4);
+        for (DecaySource source : sourceMap.values()) {
+            if (source.damageSource == null) continue;
+            Optional<RegistryEntryList.Named<DamageType>> opt = wrapper.getOptional(source.damageSource);
+            if (opt.isEmpty()) continue;
+            if (opt.get().contains(type)) out.add(source);
+        }
+        return out;
     }
 
     public static Optional<DecaySource> get(String id) {

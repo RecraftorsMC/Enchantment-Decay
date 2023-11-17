@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:lightning_bolt",
+    "minecraft:fireworks",
+    "minecraft:fireball",
+    "minecraft:explosion",
+    "minecraft:player_explosion",
+    "minecraft:wither_skull"
+  ]
+}

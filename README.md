@@ -70,6 +70,15 @@ enchantment gets to decay on what occasion.
 The `blacklist` tag is the one and only exception, as it defines enchantments that cannot decay.
 By default, this tag only contains curses.
 
+## Damage types
+
+As of 1.20, Enchantment Decay also uses damage types, in order to apply decay on armor upon receiving certain types
+of damage. To do this, each decay source can be linked to a damage source tag, that will indicate whether the
+subject enchantments should be able to receive decay from such damage.
+
+The used tags for this are all registered as `enchantment_decay:decay/<name>`, so under the
+`data/enchantment_decay/tags/damage_type/decay/` folder within a datapack.
+
 ## Showcase
 
 A (silent) showcase of this mod can be found [here](https://youtu.be/ynX38MOlzTw)

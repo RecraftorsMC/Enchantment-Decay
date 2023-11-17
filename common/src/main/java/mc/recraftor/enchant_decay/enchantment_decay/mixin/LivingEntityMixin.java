@@ -5,7 +5,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -19,6 +18,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+
+import java.util.Collection;
 
 import static mc.recraftor.enchant_decay.enchantment_decay.EnchantmentDecay.decay;
 
@@ -39,20 +40,13 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "modifyAppliedDamage", at = @At("TAIL"))
     private void modifyAppliedDamageTailInjector(DamageSource source, float amount, CallbackInfoReturnable<Float> cir) {
-        DecaySource decay;
-        //TODO: damage source tags
-        if (source.isOf(DamageTypes.IN_FIRE) || source.isOf(DamageTypes.ON_FIRE) || source.isOf(DamageTypes.FIREBALL)) decay = DecaySource.FIRE;
-        else if (source.isOf(DamageTypes.FALL)) decay = DecaySource.FALL;
-        else if (source.isOf(DamageTypes.EXPLOSION) || source.isOf(DamageTypes.PLAYER_EXPLOSION)) decay = DecaySource.BLAST;
-        else if (source.isOf(DamageTypes.MOB_PROJECTILE) || source.isOf(DamageTypes.ARROW)) decay = DecaySource.GET_SHOT;
-        else decay = null;
-
-        getArmorItems().forEach(stack -> {
+        Collection<DecaySource> decaySources = DecaySource.resolveDamageSources(source.getTypeRegistryEntry());
+        decaySources.forEach(decay -> getArmorItems().forEach(stack -> {
             decay(stack, getRandom(), DecaySource.HURT);
             if (decay != null) {
                 decay(stack, getRandom(), decay);
             }
-        });
+        }));
     }
 
     @Inject(
