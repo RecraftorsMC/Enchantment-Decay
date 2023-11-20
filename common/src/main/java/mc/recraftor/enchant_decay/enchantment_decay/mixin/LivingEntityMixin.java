@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
@@ -56,16 +57,17 @@ public abstract class LivingEntityMixin extends Entity {
         });
     }
 
-    @Inject(
+    @Redirect(
             method = "getNextAirUnderwater",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/util/math/random/Random;nextInt(I)I",
-                    shift = At.Shift.AFTER),
-            locals = LocalCapture.CAPTURE_FAILEXCEPTION
+                    target = "Lnet/minecraft/util/math/random/Random;nextInt(I)I"
+            )
     )
-    private void getNextAirUnderwaterInjector(int air, CallbackInfoReturnable<Integer> cir, int i) {
-        getArmorItems().forEach(stack -> decay(stack, getRandom(), DecaySource.BREATHING, cir.getReturnValue()));
+    private int getNextAirUnderwaterInjector(Random instance, int i) {
+        int r = instance.nextInt(i);
+        getArmorItems().forEach(stack -> decay(stack, getRandom(), DecaySource.BREATHING, r));
+        return r;
     }
 
     @Inject(method = "travel",
