@@ -33,6 +33,9 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "onKilledBy", at = @At("TAIL"))
     private void onKilledByTailInjector(LivingEntity adversary, CallbackInfo ci) {
+        if (adversary == null) {
+            return;
+        }
         decay(adversary.getMainHandStack(), this.getRandom(), DecaySource.KILL);
     }
 
