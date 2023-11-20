@@ -7,6 +7,7 @@ import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -31,7 +32,8 @@ public abstract class CrossbowItemMixin {
     private static void loadProjectilesLoadMultishot(LivingEntity shooter, ItemStack projectile,
                                                      CallbackInfoReturnable<Boolean> cir, int i, int j, boolean bl,
                                                      ItemStack itemStack, ItemStack itemStack2, int k) {
-        EnchantmentDecay.decay(projectile, shooter.getRandom(), DecaySource.SHOOT, k);
+        Random random = shooter != null ? shooter.getRandom() : Random.create();
+        EnchantmentDecay.decay(projectile, random, DecaySource.SHOOT, k);
     }
 
     @Inject(
